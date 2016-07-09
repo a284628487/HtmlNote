@@ -1,6 +1,7 @@
 # 淘宝html5页面 Header + Content + Footer
 ===
 相比于其它网站的header + content + footer在手机端的展现，个人更喜欢淘宝的样式，因为其更接近原生，在UC浏览器中，上下滚动到了最顶部、底部时，不会出现还能继续滚动，显示出空白区域的难看的样式。下面的css就是从淘宝提取出来的！
+
 ```
 html,
 body,
@@ -71,8 +72,8 @@ body,
     background-color: #5bc0de;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
-
 ```
+
 定义完css后，接下来就在html页面中使用这些样式：
 ```
 <body>
@@ -100,7 +101,7 @@ body,
 </body>
 ```
 
-重点观察属性样式：
+要点：
 - html&body&view: `display:block`, `position:relative`;
 - scrollview: `display:flex`;
 - scroll-wrap: `flex-grow:1`, `overflow:scroll`;

@@ -51,7 +51,7 @@
 
 </body>
 ```
-解释：
+要点：
 - `listItem` 定义了`listItem`的行高，字体等信息；
 - `listItem:active` 定义了当`listItem`的活动状态样式，也就是用户按下的时候的样式，类似`android`中的`selector`里面的`state_active`;
 - `listItem::after` 定义了`listItem`底部`divider`分割条，也可以省略此样式，在`listItem`中直接定义`margin-top`，也可以实现`divider`分割条，但某些情况下，使用`::after`将会更灵活，除了`::after`，还有`::before`；

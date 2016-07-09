@@ -24,7 +24,7 @@
 
 ```
 
-解释：
+要点：
 - `box` 定义父元素的 `display` 属性为 `table`，以及 `text-align: center` 使子元素左右居中；
 - `center` 字义了元素的 `display` 属性为 `table-cell`，也就是表明此元素的表现属性为一个`cell`，再结合 `vertical-align: middle` 就实现了元素的上下居中；
 - 使用 `box` `center` 方式实现时，需要最外层的`div`的宽高确定，比如100%，`center`的宽高不用设置，因为它的`display` 属性为 `table-cell`，所以它会铺满整个 `box`，最后展现出的效果就是`img`左右上下居中了；

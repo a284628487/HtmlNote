@@ -41,7 +41,7 @@
 </div>
 ```
 
-解释：
+要点：
 - `percent50` 设置 `width: 50%;` 表示该样式的宽度为父元素的50%; 
 - `percent50 div` 设置 `margin-left`，`margin-top` 用于展示 `divider` 分割线；
 - 最顶层的div也设置了`margin-left`，`margin-top`属性，都为-1px，是因为 `percent50` 元素的子元素 `div` 元素设置了边距，否则将会在顶层的 `div` 中最左边最顶部显示出边距；
