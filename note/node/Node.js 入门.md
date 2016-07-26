@@ -88,3 +88,23 @@ module.exports = variable;
 var foo = require('other_module');
 ```
 引入的对象具体是什么，取决于引入模块输出的对象。
+
+- 输出多个变量
+```
+function eat(food){
+    console.log('eat ' + food);
+}
+
+module.exports = {
+    greet: greet,
+    eat: eat
+}
+```
+
+- 使用输出的多个变量
+```
+var greet = require('./greet');
+var s = 'a284628487';
+greet.greet(s); // Hello, a284628487!
+greet.eat('food'); // eat food
+```

@@ -80,10 +80,6 @@ function greet(name) {
     console.log('Hello, ' + name + '!');
 }
 
-function hello() {
-    console.log('Hello, world!');
-}
-
 module.exports = {
     hello: hello,
     greet: greet
@@ -99,10 +95,6 @@ function hello() {
 
 function greet(name) {
     console.log('Hello, ' + name + '!');
-}
-
-function hello() {
-    console.log('Hello, world!');
 }
 
 exports.hello = hello;
@@ -134,6 +126,7 @@ var load = function (exports, module) {
 };
 ```
 - var exported = load(module.exports, module);
+
 也就是说，默认情况下，`Node`准备的`exports`变量和`module.exports`变量实际上是同一个变量，并且初始化为空对象{}，于是，我们可以写：
 ```
 exports.foo = function () { return 'foo'; };
