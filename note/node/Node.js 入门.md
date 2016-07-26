@@ -4,9 +4,41 @@
 安装完成后，在命令行窗口输入`node -v`，即可看到版本信息，在命令行输入`node`，可进入`Node.js`交互环境，在交互环境下，你可以输入任意`JavaScript`语句，例如100+200，回车后将得到输出结果。要退出`Node.js`环境，连按两次`Ctrl+C`。
 
 npm: `npm`其实是`Node.js`的包管理工具（package manager）。
+
 我们在Node.js上开发时，会用到很多别人写的JavaScript代码。如果我们要使用别人写的某个包，每次都根据名称搜索一下官方网站，下载代码，解压，再使用，非常繁琐。于是一个集中管理的工具应运而生：大家都把自己开发的模块打包后放到npm官网上，如果要使用，直接通过npm安装就可以直接用，不用管代码存在哪，应该从哪下载。
 更重要的是，如果我们要使用模块A，而模块A又依赖于模块B，模块B又依赖于模块X和模块Y，npm可以根据依赖关系，把所有依赖的包都下载下来并管理起来。
 `npm`已经在`Node.js`安装的时候顺带装好了。我们在命令提示符或者终端输入`npm -v`，即可以看到`npm`的版本。
+
+NPM使用场景
+- 允许用户从NPM服务器下载别人编写的第三方包到本地使用。
+- 允许用户从NPM服务器下载并安装别人编写的命令行程序到本地使用。
+- 允许用户将自己编写的包或命令行程序上传到NPM服务器供别人使用。
+
+#### npm安装第三方包
+```
+npm install express      # 本地安装
+npm install express -g   # 全局安装
+```
+如果出现以下错误：
+```
+npm err! Error: connect ECONNREFUSED 127.0.0.1:8087 
+```
+解决办法为：
+```
+$ npm config set proxy null
+```
+#### npm卸载模块
+```
+$ npm uninstall express
+```
+#### npm更新模块
+```
+$ npm update express
+```
+#### npm搜索模块
+```
+$ npm search express
+```
 
 #### HelloWorld
 新建一个文件`hw.js`，然后在命令行窗口下进入该目录，输入命令`node hw.js`，即可执行`hw.js`里面的代码。
