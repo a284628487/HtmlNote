@@ -128,4 +128,43 @@ console.log('Server is running at http://127.0.0.1:8080/');
 ```
 第一个请求是浏览器请求`index.html`页面，后续请求是浏览器解析`HTML`后发送的其它资源请求。
 
+#### GET/POST请求
 
+- 获取`GET`请求内容
+
+由于`GET`请求直接被嵌入在路径中，`URL`是完整的请求路径，包括了`?`后面的部分，因此你可以手动解析后面的内容作为`GET`请求的参数。
+`node.js`中`url`模块中的`parse`函数提供了这个功能。
+```
+var http = require('http');
+var url = require('url');
+var util = require('util');
+
+http.createServer(function(req, res){
+    res.writeHead(200, {'Content-Type': 'text/plain'});
+    res.end(util.inspect(url.parse(req.url, true)));
+}).listen(3000);
+```
+在浏览器中访问`http://localhost:3000/user?name=w3c&email=w3c@w3cschool.cc`然后查看返回结果
+
+- 获取`POST`请求内容
+
+`POST`请求的内容全部的都在请求体中，`http.ServerRequest`并没有一个属性内容为请求体，原因是等待请求体传输可能是一件耗时的工作。比如上传文件，而很多时候我们可能并不需要理会请求体的内容，恶意的`POST`请求会大大消耗服务器的资源，所有`node.js`默认是不会解析请求体的，当你需要的时候，需要手动来做。
+
+```
+var http = require('http');
+var querystring = require('querystring');
+var util = require('util');
+
+http.createServer(function(req, res){
+    var post = ''; //定义了一个post变量，用于暂存请求体的信息
+
+    req.on('data', function(chunk){ //通过req的data事件监听函数，每当接受到请求体的数据，就累加到post变量中
+        post += chunk;
+    });
+
+    req.on('end', function(){ // 在end事件触发后，通过querystring.parse将post解析为真正的POST请求格式，然后向客户端返回。
+        post = querystring.parse(post);
+        res.end(util.inspect(post));
+    });
+}).listen(3000);
+```
