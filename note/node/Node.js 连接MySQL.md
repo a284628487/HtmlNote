@@ -29,25 +29,27 @@ conn.end();
 // conn.destory();
 ```
 
-使用`conn.query`方法查询数据，`query`方法同样也可以进行新增、删除、更新操作；
+使用`conn.query`方法查询数据，`query`方法同样也可以进行新增、删除、更新操作，从回调函数的第二个参数中可以获取到对应的执行结果。
 
 ```
 //新增
-// conn.query('insert into user (username,password) ...', function(err, result) {
-//     if (err) throw err;
-//     console.log(result);
-// })
+conn.query('insert into user (username,password) ...', function(err, result) {
+    if (err) throw err;
+    console.log(result); // result.insertId -> 获取新插入的数据的自增id
+})
  
 //删除
-// conn.query('delete from user where username="wupeigui"', function(err, result) {
-//     if (err) throw err;
-//     console.log(result);
-// })
- 
-// conn.query('update user set id="1" where username="huxiaona"',function(err,result){
-//     if (err) {throw err};
-//     console.log("修改数据成功");
-// })
+conn.query('delete from user where username="wupeigui"', function(err, result) {
+    if (err) throw err;
+    console.log(result);
+})
+
+// 更新 
+conn.query('update user set id="1" where username="huxiaona"',function(err,result){
+    if (err) {throw err};
+    console.log("修改数据成功");
+})
+// 删除和更新，可以通过result.affectedRows来获取受影响的行数；
 ```
 
 #### 数据库连接池
@@ -219,3 +221,46 @@ connection.beginTransaction(function(err) {
 	}); 
 }); 
 ```
+
+#### 转义
+
+- 字符串转义
+
+在使用客户端输入的值来组装查询语句时，需要对这些值进行正确的转义，以避免遭受SQL注入攻击。可以使用`escape()`方法来对这些值进行转义：
+```
+	var sql = 'select * from User where id = ' + conn.escape("27 or id = 28");
+	console.log(sql);
+	conn.query(sql, function(err, resulst){
+		console.log(resulst);
+	});
+```
+还可以在SQL语句中将要转义的值用问号`?`来代替，再在调用`query()`方法时 传入这些待转义的值
+```
+	conn.query('select * from User where id=? or id=?', [27, 28], function(err, rs){
+		console.log(rs);
+	});
+```
+- 标识符转义
+
+与字符串值的转义类似，标识符的转义可以使用`escapeId()`方法来实现：
+```
+var sorter = 'date';
+var query = 'SELECT * FROM posts ORDER BY ' + mysql.escapeId(sorter);
+console.log(query); // SELECT * FROM posts ORDER BY `date`
+//
+var sorter = 'date';
+var query = 'SELECT * FROM posts ORDER BY ' + mysql.escapeId('posts.' + sorter);
+
+console.log(query); // SELECT * FROM posts ORDER BY `posts`.`date`
+```
+也可以在 SQL 语句中使用两个问号??来表示要转义的标识符：
+```
+var userId = 1;
+var columns = ['username', 'email'];
+var query = connection.query('SELECT ?? FROM ?? WHERE id = ?', [columns, 'users', userId], function(err, results) {});
+
+console.log(query.sql); // SELECT `username`, `email` FROM `users` WHERE id = 1
+```
+
+
+
