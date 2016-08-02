@@ -328,4 +328,59 @@ app.listen(8081);
 
 使用`npm init`命令可以帮我们互动式地生成一份最简单的`package.json`文件。
 
+#### 参数获取
 
+- params 只能获取`express`路由传递的参数，
+```
+// name占位符
+app.get('/api/:name/', function(req, resp){
+  var name = req.params.name; // 获取name参数
+});
+```
+除了硬编码占位符之外，还可以使用正则路由
+```
+app.get('/file/*', function(req, resp){
+  var param = req.params[0];
+  // `localhost:3000/file/javascripts/jquery.js` -> javascripts/jquery.js
+});
+```
+如果没在路由器设置参数， 则`req.params`获得的值为空对象{}
+
+- query 直接获取地址栏传递的参数
+```
+var name = req.query.name;
+```
+
+- body  `body`属性主要用于`post`请求时传递参数使用；
+```
+var app = require('express')();
+var bodyParser = require('body-parser');
+var multer = require('multer'); 
+
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(multer()); // for parsing multipart/form-data
+
+app.post('/', function (req, res) {
+  console.log(req.body);
+  res.json(req.body);
+})
+```
+
+#### router
+```
+var express = require('express');
+var app = express();
+var router = express.Router();
+app.use(router);
+router.route('/add').get(function(req, res){
+  var userObj = {};
+  userObj = {
+    name: req.body.name,
+    age: req.body.age
+  };
+  console.log(userObj);  // {name:'a284628487',age:'25'}
+});
+```
+
+[更多](http://www.expressjs.com.cn/4x/api.html)
