@@ -7,7 +7,7 @@ Express 框架核心特性：
 - 定义了路由表用于执行不同的 HTTP 请求动作。
 - 可以通过向模板传递参数来动态渲染 HTML 页面。
 
-#### 安装 Express
+## 安装 Express
 
 安装`Express`并将其保存到依赖列表中：
 ```
@@ -100,7 +100,7 @@ res.status（）：设置HTTP状态码
 res.type（）：设置Content-Type的MIME类型
 ```
 
-#### 路由
+## 路由
 
 路由决定了由谁(指定脚本)去响应客户端请求。在HTTP请求中，我们可以通过路由提取出请求的URL以及GET/POST参数。
 接下来我们扩展 Hello World，添加一些功能来处理更多类型的 HTTP 请求。
@@ -141,7 +141,7 @@ var server = app.listen(8081, function () {
 })
 ```
 
-#### 静态文件
+## 静态文件
 
 `Express`提供了内置的中间件`express.static`来设置静态文件如：图片，CSS, JavaScript等。你可以使用`express.static` 中间件来设置静态文件路径。例如，如果将图片，CSS, JavaScript 文件放在`public`目录下，可以这么写：
 ```
@@ -165,7 +165,7 @@ var server = app.listen(8081, function () {
 ```
 在`public`文件夹中添加一张图片'logo.png'，就可以在浏览器中通过`http://127.0.0.1:8081/logo.png`来访问了。
 
-#### GET 方法
+## GET 方法
 
 实例演示了在表单中通过`GET`方法提交两个参数，可以使用`server.js`文件内的`process_get`路由器来处理输入：
 
@@ -209,7 +209,7 @@ var server = app.listen(8081, function () {
 })
 ```
 
-#### POST 方法
+## POST 方法
 
 将上例中`index.html`的请求方式改为`post`
 ```
@@ -253,7 +253,7 @@ var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 ```
 
-#### 文件上传
+## 文件上传
 
 使用`POST`方法，表单`enctype`属性设置为`multipart/form-data`。
 ```
@@ -305,7 +305,7 @@ var server = app.listen(8081, function () {
 })
 ```
 
-#### Cookie 管理
+## Cookie 管理
 
 我们可以使用中间件向`Node.js`服务器发送`cookie`信息，以下代码输出了客户端发送的`cookie`信息：
 ```
@@ -322,7 +322,7 @@ app.get('/', function(req, res) {
 app.listen(8081);
 ```
 
-#### package.json
+## package.json
 
 `package.json`文件就是定义了项目的各种元信息，包括项目的名称，`git repo`的地址，作者等等。最重要的是，其中定义了我们项目的依赖，这样这个项目在部署时，我们就不必将`node_modules`目录也上传到服务器，服务器在拿到我们的项目时，只需要执行`npm install`，`npm`会自动读取`package.json`中的依赖并安装在项目的`node_modules`下面，然后程序就可以在服务器上跑起来了。
 
