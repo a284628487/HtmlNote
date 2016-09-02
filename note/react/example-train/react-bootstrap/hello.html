@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello Bootstrap</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <style type="text/css">
+      .mymodal {
+        border: 1px solid #00ff00;
+        height: 40px;
+      }
+      
+      span {
+        height: 64px;
+        width: 100%;
+        background: #ff4400;
+        color: #ffffff;
+      }
+    </style>
+  </head>
+  <body>
+
+    <script src="../build/jquery-1.8.2.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <!-- Bootstrap -->
+
+    <script src="../build/react.min.js"></script>
+    <script src="../build/react-dom.min.js"></script>
+    <script src="../build/browser.min.js"></script>
+    
+    <div id="container"></div>
+    <div id="container2"></div>
+    <div id="container3"></div>
+    <div id="container4"></div>
+    <div id="container5"></div>
+
+    <script type="text/babel">
+      var DivAbc = React.createClass({
+        render: function () {
+          // body...
+          return <h4>Hello Bootstrap from React 1</h4>
+        }
+      });
+      ReactDOM.render(<DivAbc />, document.getElementById("container"));
+    </script>
+
+    <script type="text/babel">
+      var DivAlert = React.createClass({
+        render : function () {
+          // body...
+          return (<div className="alert">
+            <button type="button" className="close" data-dismiss="alert">&times;</button>
+            <strong>Warning!</strong> you are looking not too good! </div>
+          );
+        }
+      });
+      ReactDOM.render(<DivAlert />, document.getElementById("container2"));
+
+      var BootstrapButton = React.createClass({
+        render: function() {
+          return (
+            <a {...this.props}
+              href="javascript:;"
+              role="button"
+              className={(this.props.className || '') + ' btn'} />
+          );
+        }
+      });
+      ReactDOM.render(<BootstrapButton id="a-button">BootstrapButton</BootstrapButton>, document.getElementById("container3"));
+
+      var BootstrapModal = React.createClass({
+        render: function () {
+          return (<div {...this.props}>
+            <div className="mymodal" onClick={this.show}>{this.props.show}</div>
+            <div className="mymodal" onClick={this.hide}>{this.props.hide}</div>
+            <div className="mymodal">EmptyArea</div>
+           </div>)
+        },
+        show: function () {
+          // body...
+          console.log('show--------');
+          if(this.props.onShowClicked){
+            this.props.onShowClicked();
+          }
+        },
+        hide: function () {
+          // body...
+          console.log('hide--------');
+          if(this.props.onHideClicked){
+            this.props.onHideClicked();
+          }
+        },
+      });
+
+      var Pannel = React.createClass({
+        render: function () {
+          // body...
+          var btn = (<BootstrapButton onClick={this.handleClick}>ShowOrHide</BootstrapButton>);
+
+          var modal = (<BootstrapModal
+            ref="modal"
+            show="Show click"
+            hide="Hide click"
+            onClick={this.handleClick}
+            onShowClicked={this.onShowClicked}
+            onHideClicked={this.onHideClicked}
+            >BootstrapModal
+            </BootstrapModal>);
+          return <div>
+            {modal}
+            {btn}
+          </div>;
+        },
+        handleClick: function () {
+          console.log("Button#handleClick");
+          this.refs.modal.show();
+        },
+        onShowClicked: function () {
+          // body...
+          console.log('onShowClicked');
+        },
+        onHideClicked: function () {
+          // body...
+          console.log('onHideClicked');
+        }
+      });
+      ReactDOM.render(<Pannel />, document.getElementById("container4"));
+
+    </script>
+  </body>
+</html>
+
